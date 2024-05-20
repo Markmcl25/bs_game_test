@@ -28,4 +28,15 @@ class Ship:
                 self.grid[x][y] = 'S'
         self.ships.append(ship)
         return True
+
+        def receive_attack(self, position)
+         x, y = position
+          if self.grid[x][y] == 'S':
+            self.grid[x][y] = 'X'
+            return "Hit"
+        elif self.grid[x][y] == '~':
+            self.grid[x][y] = 'O'
+            return "Miss"
+        return "Already tried"
+
         
