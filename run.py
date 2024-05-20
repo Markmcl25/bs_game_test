@@ -97,4 +97,13 @@ class Ship:
                         except ValueError as e:
                             print(f"Invalid input: {e}")
                             
+         def computer_turn(self):
+            while True:
+                x, y = random.randint(0, self.size - 1), random.randint(0, self.size - 1)
+                result = self.player_board.receive_attack((x, y))
+                if result in ["Hit", "Miss"]:
+                    print(f"Computer attacks ({x}, {y}): {result}")
+                    self.player_board.display()
+                    break
+
                         
