@@ -75,7 +75,7 @@ class Ship:
             while True:
                 self.player_turn()
                 if self.computer_board.all_ships_sunk():
-                    print("BOOM! You sank all the computer's ships!")
+                    print("BOOM! You sank all the computer's ships. You win!")
                 break
             self.computer_turn()
             if self.player_board.all_ships_sunk():
@@ -105,5 +105,14 @@ class Ship:
                     print(f"Computer attacks ({x}, {y}): {result}")
                     self.player_board.display()
                     break
+
+                class MainGame:
+                    def __init__ (self, size):
+                        self.size = size
+                        self.player_board = Board(size)
+                        self.computer_board =Board(size)
+
+                        
+
 
                         
