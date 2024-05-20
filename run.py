@@ -39,4 +39,12 @@ class Ship:
             return "Miss"
         return "Already tried"
 
-        
+         def all_ships_sunk(self):
+        for ship in self.ships:
+            if any(self.grid[x][y] == 'S' for (x, y) in ship.coordinates):
+                return False
+        return True
+
+        def display(self, reveal_ships=False):
+            for row in self.grid:
+                
