@@ -31,21 +31,21 @@ class Ship:
 
         def receive_attack(self, position)
          x, y = position
-          if self.grid[x][y] == 'S':
+            if self.grid[x][y] == 'S':
             self.grid[x][y] = 'X'
-            return "Hit"
+                return "Hit"
         elif self.grid[x][y] == '~':
             self.grid[x][y] = 'O'
-            return "Miss"
-        return "Already tried"
+                return "Miss"
+                return "Already tried"
 
-         def all_ships_sunk(self):
+        def all_ships_sunk(self):
         for ship in self.ships:
             if any(self.grid[x][y] == 'S' for (x, y) in ship.coordinates):
                 return False
-        return True
+                return True
 
-        def display(self, reveal_ships=False):
+            def display(self, reveal_ships=False):
             for row in self.grid:
                 print(' '.join(row))
                 print()
@@ -54,5 +54,30 @@ class Ship:
             def __init__ (self, size):
                 self.size = size
                 self.player_board = Board(size)
-                self.computer_board = Board(size)       
+                self.computer_board = Board(size)    
 
+            def setup_board(self, board):   
+                for size in [5,4,3,3,2] #Ship sizes
+                placed = False
+                while not placed:
+                    orientation = random.choice(['H', 'V'])
+                if orientation == 'H':
+                    start = (random.randint(0, board.size - 1), random.randint(0, board.size - size))
+                else:
+                    start = (random.randint(0, board.size - size), random.randint(0, board.size - 1))
+                ship = Ship(size, orientation, start)
+                placed = board.place_ship(ship)
+
+        def play(self):
+            self.setup_board(self.player_board)
+            self.sentup_board(self.computer_board)
+
+            while True:
+                self.player_turn()
+                if self.computer_board.all_ships_sunk():
+                    print("BOOM! You sank all the computer's ships!")
+                break
+            self.computer_turn()
+            if self.player_board.all_ships_sunk():
+                print("OH NO, the computer sank all your ships. You lose.")
+                break
