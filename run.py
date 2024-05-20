@@ -47,4 +47,12 @@ class Ship:
 
         def display(self, reveal_ships=False):
             for row in self.grid:
-                
+                print(' '.join(row))
+                print()
+
+        class MainGame:
+            def __init__ (self, size):
+                self.size = size
+                self.player_board = Board(size)
+                self.computer_board = Board(size)       
+
