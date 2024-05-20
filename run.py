@@ -50,7 +50,7 @@ class Ship:
                 print(' '.join(row))
                 print()
 
-        class MainGame:
+    class MainGame:
             def __init__ (self, size):
                 self.size = size
                 self.player_board = Board(size)
@@ -81,3 +81,20 @@ class Ship:
             if self.player_board.all_ships_sunk():
                 print("OH NO, the computer sank all your ships. You lose.")
                 break
+
+        def player_turn(self):
+            while True:
+                try:
+                    guess = input("Pick your attack coordinates (row col): ")  
+                    x, y = map(int, guess.split())
+                    if not (0 <= x < self.size and 0 <= y < self.size):
+                        raise ValueError("Miss!")
+                        result = self.computer_board.receive_attack((x, y))
+                        print(f"Player attacks ({x}, {y}): {result}")
+                        self.computer_board.display()
+                         if result in ["Hit", "Miss"]:
+                            break
+                        except ValueError as e:
+                            print(f"Invalid input: {e}")
+                            
+                        
