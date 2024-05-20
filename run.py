@@ -29,25 +29,25 @@ class Ship:
         self.ships.append(ship)
         return True
 
-        def receive_attack(self, position)
+        def receive_attack(self, position):
          x, y = position
-            if self.grid[x][y] == 'S':
+        if self.grid[x][y] == 'S':
             self.grid[x][y] = 'X'
-                return "Hit"
+            return "Hit"
         elif self.grid[x][y] == '~':
             self.grid[x][y] = 'O'
-                return "Miss"
-                return "Already tried"
+            return "Miss"
+            return "Already tried"
 
         def all_ships_sunk(self):
-        for ship in self.ships:
-            if any(self.grid[x][y] == 'S' for (x, y) in ship.coordinates):
-                return False
+            for ship in self.ships:
+                if any(self.grid[x][y] == 'S' for (x, y) in ship.coordinates):
+                    return False
                 return True
 
             def display(self, reveal_ships=False):
-            for row in self.grid:
-                print(' '.join(row))
+                for row in self.grid:
+                    print(' '.join(row))
                 print()
 
     class MainGame:
@@ -57,8 +57,8 @@ class Ship:
                 self.computer_board = Board(size)    
 
             def setup_board(self, board):   
-                for size in [5,4,3,3,2] #Ship sizes
-                placed = False
+                for size in [5,4,3,3,2]:
+                    placed = False
                 while not placed:
                     orientation = random.choice(['H', 'V'])
                 if orientation == 'H':
@@ -68,8 +68,8 @@ class Ship:
                 ship = Ship(size, orientation, start)
                 placed = board.place_ship(ship)
 
-        def play(self):
-            self.setup_board(self.player_board)
+            def play(self):
+                self.setup_board(self.player_board)
             self.sentup_board(self.computer_board)
 
             while True:
@@ -82,24 +82,24 @@ class Ship:
                 print("OH NO, the computer sank all your ships. You lose.")
                 break
 
-        def player_turn(self):
-            while True:
-                try:
-                    guess = input("Pick your attack coordinates (row col): ")  
-                    x, y = map(int, guess.split())
-                    if not (0 <= x < self.size and 0 <= y < self.size):
-                        raise ValueError("Miss!")
+            def player_turn(self):
+                while True:
+                    try:
+                        guess = input("Pick your attack coordinates (row col): ")  
+                        x, y = map(int, guess.split())
+                        if not (0 <= x < self.size and 0 <= y < self.size):
+                            raise ValueError("Miss!")
                         result = self.computer_board.receive_attack((x, y))
                         print(f"Player attacks ({x}, {y}): {result}")
                         self.computer_board.display()
-                         if result in ["Hit", "Miss"]:
+                        if result in ["Hit", "Miss"]:
                             break
-                        except ValueError as e:
+                    except ValueError as e:
                             print(f"Invalid input: {e}")
                             
-         def computer_turn(self):
-            while True:
-                x, y = random.randint(0, self.size - 1), random.randint(0, self.size - 1)
+            def computer_turn(self):
+                while True:
+                    x, y = random.randint(0, self.size - 1), random.randint(0, self.size - 1)
                 result = self.player_board.receive_attack((x, y))
                 if result in ["Hit", "Miss"]:
                     print(f"Computer attacks ({x}, {y}): {result}")
