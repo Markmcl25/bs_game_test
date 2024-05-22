@@ -58,10 +58,10 @@ class MainGame:
     def __init__(self, size):
         self.size = size
         self.player_board = Board(size)
-        self.computer_board = Board(size)   
+        self.computer_board = Board(size)
 
     def setup_board(self, board):
-        for size in [5,4,3,3,2]:   
+        for size in [5, 4, 3, 3, 2]:   
             placed = False
             while not placed:
                 orientation = random.choice(['H', 'V'])
@@ -69,13 +69,16 @@ class MainGame:
                     start = (random.randint(0, board.size - 1), random.randint(0, board.size - size))
                 else:
                     start = (random.randint(0, board.size - size), random.randint(0, board.size - 1))
-                    ship = Ship(size, orientation, start)
-                    placed = board.place_ship(ship)
+                ship = Ship(size, orientation, start)
+                placed = board.place_ship(ship)
 
     def play(self):
         # Main game loop to alternate turns between player and computer
         self.setup_board(self.player_board)
         self.setup_board(self.computer_board)
+
+        print("Player Board:")
+        self.player_board.display(reveal_ships=True)
 
         while True:
             self.player_turn()
@@ -100,18 +103,27 @@ class MainGame:
                 if result in ["Hit", "Miss"]:
                     break
             except ValueError as e:
-                print(f"Invalid input: {e}")   
+                print(f"Invalid input: {e}")
 
-     def computer_turn (self):
+    def computer_turn(self):
         while True:
-            x, y = random.randint(0, self.size - 1), ramdom.randint(0, self.size -1)
-               result = self.player_board.receive_attack((x, y))
+            x, y = random.randint(0, self.size - 1), random.randint(0, self.size - 1)
+            result = self.player_board.receive_attack((x, y))
             if result in ["Hit", "Miss"]:
                 print(f"Computer attacks ({x}, {y}): {result}")
                 self.player_board.display()
-                break   
+                break
 
-
-if __name__ == "__main":
-    game = MainGame(size=10)
-    game.play()                            
+if __name__ == "__main__":
+    while True:
+        try:
+            size = int(input("Enter the size of the grid: "))
+            if size < 5:
+                print("Grid size must be at least 5. Please try again.")
+                continue
+            break
+        except ValueError:
+            print("Invalid input. Please enter an integer.")
+    
+    game = MainGame(size)
+    game.play()
