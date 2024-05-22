@@ -110,4 +110,8 @@ class MainGame:
                 print(f"Computer attacks ({x}, {y}): {result}")
                 self.player_board.display()
                 break   
-                            
+
+
+if __name__ == "__main":
+    game = MainGame(size=10)
+    game.play()                            
