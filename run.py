@@ -73,6 +73,7 @@ class MainGame:
                     placed = board.place_ship(ship)
 
     def play(self):
+        # Main game loop to alternate turns between player and computer
         self.setup_board(self.player_board)
         self.setup_board(self.computer_board)
 
@@ -99,4 +100,14 @@ class MainGame:
                 if result in ["Hit", "Miss"]:
                     break
             except ValueError as e:
-                print(f"Invalid input: {e}")                 
+                print(f"Invalid input: {e}")   
+
+     def computer_turn (self):
+        while True:
+            x, y = random.randint(0, self.size - 1), ramdom.randint(0, self.size -1)
+               result = self.player_board.receive_attack((x, y))
+            if result in ["Hit", "Miss"]:
+                print(f"Computer attacks ({x}, {y}): {result}")
+                self.player_board.display()
+                break   
+                            
