@@ -54,6 +54,14 @@ class Board:
             print(' '.join(row))
         print()
 
+    def get_available_coordinates(self):
+        available = []
+        for x in range(self.size):
+            for y in range(self.size):
+                if self.grid[x][y] == '~' or self.grid[x][y] == 'S':
+                    available.append((x, y))
+        return available
+
 class MainGame:
     def __init__(self, size):
         self.size = size
@@ -72,11 +80,14 @@ class MainGame:
                 ship = Ship(size, orientation, start)
                 placed = board.place_ship(ship)
 
-    def play(self):
-        # Main game loop to alternate turns between player and computer
+    def reset(self):
+        self.player_board = Board(self.size)
+        self.computer_board = Board(self.size)
         self.setup_board(self.player_board)
         self.setup_board(self.computer_board)
 
+    def play(self):
+        self.reset()
         print("Player Board:")
         self.player_board.display(reveal_ships=True)
 
@@ -89,6 +100,8 @@ class MainGame:
             if self.player_board.all_ships_sunk():
                 print("OH NO, the computer sank all your ships. You lose.")
                 break
+
+        self.play_again()
 
     def player_turn(self):
         while True:
@@ -120,7 +133,7 @@ class MainGame:
     def play_again(self):
         while True:
             again = input("Would you like to play again? (yes/no): ").strip().lower()   
-             if again in ['yes', 'y']:
+            if again in ['yes', 'y']:
                 self.play()
                 break
             elif again in ['no', 'n']:
