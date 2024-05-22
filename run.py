@@ -95,7 +95,7 @@ class MainGame:
             try:
                 available_coordinates = self.computer_board.get_available_coordinates()
                 print("Available coordinates:", available_coordinates)
-                
+
                 guess = input("Pick your attack coordinates (row col): ")
                 x, y = map(int, guess.split())
                 if not (0 <= x < self.size and 0 <= y < self.size):
@@ -116,6 +116,18 @@ class MainGame:
                 print(f"Computer attacks ({x}, {y}): {result}")
                 self.player_board.display()
                 break
+
+    def play_again(self):
+        while True:
+            again = input("Would you like to play again? (yes/no): ").strip().lower()   
+             if again in ['yes', 'y']:
+                self.play()
+                break
+            elif again in ['no', 'n']:
+                print("Thanks for playing!")
+                break
+            else:
+                print("Invalid input. Please enter 'yes' or 'no'.")
 
 if __name__ == "__main__":
     while True:
