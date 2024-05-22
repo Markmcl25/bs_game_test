@@ -72,7 +72,8 @@ class MainGame:
                     ship = Ship(size, orientation, start)
                     placed = board.place_ship(ship)
 
-
-
+    def play(self):
+        self.setup_board(self.player_board)
+        self.setup_board(self.computer_board)
 
                         
