@@ -60,6 +60,19 @@ class MainGame:
         self.player_board = Board(size)
         self.computer_board = Board(size)   
 
+    def setup_board(self, board):
+        for size in [5,4,3,3,2]:   
+            placed = False
+            while not placed:
+                orientation = random.choice(['H', 'V'])
+                if orientation == 'H':
+                    start = (random.randint(0, board.size - 1), random.randint(0, board.size - size))
+                else:
+                    start = (random.randint(0, board.size - size), random.randint(0, board.size - 1))
+                    ship = Ship(size, orientation, start)
+                    placed = board.place_ship(ship)
+
+
 
 
                         
