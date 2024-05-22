@@ -76,4 +76,14 @@ class MainGame:
         self.setup_board(self.player_board)
         self.setup_board(self.computer_board)
 
+        while True:
+            self.player_turn()
+            if self.computer_board.all_ships_sunk():
+                print("BOOM! You sank all the computer's ships. You win!")
+                break
+            self.computer_turn()
+            if self.player_board.all_ships_sunk():
+                print("OH NO, the computer sank all your ships. You lose.")
+                break
+
                         
