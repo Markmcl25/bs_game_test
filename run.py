@@ -93,6 +93,9 @@ class MainGame:
     def player_turn(self):
         while True:
             try:
+                available_coordinates = self.computer_board.get_available_coordinates()
+                print("Available coordinates:", available_coordinates)
+                
                 guess = input("Pick your attack coordinates (row col): ")
                 x, y = map(int, guess.split())
                 if not (0 <= x < self.size and 0 <= y < self.size):
