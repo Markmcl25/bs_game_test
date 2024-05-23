@@ -1,5 +1,6 @@
 import random
 
+
 class Ship:
     def __init__(self, size, orientation, start):
         self.size = size
@@ -17,6 +18,7 @@ class Ship:
                 coordinates.append((x + i, y))
         return coordinates
 
+
 class Board:
     def __init__(self, size):
         self.size = size
@@ -25,7 +27,8 @@ class Board:
 
     def place_ship(self, ship):
         for (x, y) in ship.coordinates:
-            if x < 0 or x >= self.size or y < 0 or y >= self.size or self.grid[x][y] != '~':
+            if (x < 0 or x >= self.size or y < 0 or y >= self.size or
+                    self.grid[x][y] != '~'):
                 return False
         for (x, y) in ship.coordinates:
             self.grid[x][y] = 'S'
@@ -51,7 +54,10 @@ class Board:
 
     def display(self, reveal_ships=False):
         for row in self.grid:
-            print(' '.join(row))
+            if reveal_ships:
+                print(' '.join(row))
+            else:
+                print(' '.join(['S' if cell == 'S' else cell for cell in row]))
         print()
 
     def get_available_coordinates(self):
@@ -62,6 +68,7 @@ class Board:
                     available.append((x, y))
         return available
 
+
 class MainGame:
     def __init__(self, size):
         self.size = size
@@ -69,14 +76,16 @@ class MainGame:
         self.computer_board = Board(size)
 
     def setup_board(self, board):
-        for size in [5, 4, 3, 3, 2]:   
+        for size in [5, 4, 3, 3, 2]:
             placed = False
             while not placed:
                 orientation = random.choice(['H', 'V'])
                 if orientation == 'H':
-                    start = (random.randint(0, board.size - 1), random.randint(0, board.size - size))
+                    start = (random.randint(0, board.size - 1),
+                             random.randint(0, board.size - size))
                 else:
-                    start = (random.randint(0, board.size - size), random.randint(0, board.size - 1))
+                    start = (random.randint(0, board.size - size),
+                             random.randint(0, board.size - 1))
                 ship = Ship(size, orientation, start)
                 placed = board.place_ship(ship)
 
@@ -132,7 +141,7 @@ class MainGame:
 
     def play_again(self):
         while True:
-            again = input("Would you like to play again? (yes/no): ").strip().lower()   
+            again = input("Would you like to play again? (yes/no): ").strip().lower()
             if again in ['yes', 'y']:
                 self.play()
                 break
@@ -141,6 +150,7 @@ class MainGame:
                 break
             else:
                 print("Invalid input. Please enter 'yes' or 'no'.")
+
 
 if __name__ == "__main__":
     while True:
@@ -152,6 +162,6 @@ if __name__ == "__main__":
             break
         except ValueError:
             print("Invalid input. Please enter an integer.")
-    
+
     game = MainGame(size)
     game.play()
