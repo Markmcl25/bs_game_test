@@ -54,10 +54,7 @@ class Board:
 
     def display(self, reveal_ships=False):
         for row in self.grid:
-            if reveal_ships:
-                print(' '.join(row))
-            else:
-                print(' '.join(['S' if cell == 'S' else cell for cell in row]))
+            print(' '.join(row))
         print()
 
     def get_available_coordinates(self):
