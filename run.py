@@ -47,28 +47,3 @@ class Board:
                     available.append((x, y))
         return available
 
-# Example usage
-
-player_board = Board(5)
-
-computer_board = Board(5)
-
-
-
-# Assuming `player_board` and `computer_board` have ships placed on them
-
-
-
-# Display the player's board with ships revealed
-
-print("Player's Board:")
-
-player_board.display(reveal_ships=True)
-
-
-
-# Display the computer's board with ships hidden
-
-print("Computer's Board:")
-
-computer_board.display(reveal_ships=False)
